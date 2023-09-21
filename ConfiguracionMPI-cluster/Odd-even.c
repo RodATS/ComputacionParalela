@@ -1,7 +1,8 @@
 include <stdio.h>
 #include <stdlib.h>
 #include <mpi.h>
-
+#include "timer.h"
+using namespace std;
 //FUNCIÓN PARA DIVIDIR LA LISTA DE ENTEROS
 int merge(double *ina, int lena, double *inb, int lenb, double *out) {
     int i,j;
@@ -167,10 +168,11 @@ int main(int argc, char **argv) {
     double a[n];
     for (int i=0; i<n; i++)
         a[i] = atof(argv[i+1]);
-
+    double start, end;
+    GET_TIME(start);
     MPI_OddEven_Sort(n, a, 0, MPI_COMM_WORLD);
-
+    GET_TIME(end);
     MPI_Finalize();
-
+    printf("tiempo tomado: %f\n", end-start);
     return 0;
 }
